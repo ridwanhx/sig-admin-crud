@@ -2,16 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CinemaResource\Pages;
-use App\Filament\Resources\CinemaResource\RelationManagers;
-use App\Models\Cinema;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Cinema;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\CinemaResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\CinemaResource\RelationManagers;
 
 class CinemaResource extends Resource
 {
@@ -23,7 +26,16 @@ class CinemaResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->required(),
+                TextInput::make('website')->required(),
+                TextInput::make('phone')->required(),
+                TextInput::make('address')->required(),
+                TextInput::make('city')->required(),
+                TextInput::make('province')->required(),
+                TextInput::make('country')->required(),
+                TextInput::make('postal_code')->required(),
+                TextInput::make('latitude')->numeric()->required(),
+                TextInput::make('longitude')->numeric()->required(),
             ]);
     }
 
@@ -31,13 +43,16 @@ class CinemaResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name'),
+                TextColumn::make('address'),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

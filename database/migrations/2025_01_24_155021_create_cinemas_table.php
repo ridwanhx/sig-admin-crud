@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('province', 100);
             $table->string('country', 100);
             $table->char('postal_code', 5);
-            $table->string('latitude', 100);
-            $table->string('longitude', 100);
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 10, 8);
             $table->timestamps();
         });
     }
